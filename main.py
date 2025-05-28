@@ -7,10 +7,16 @@ def pn(po:float, taxa_chegada:float, taxa_atendimento:float, n_unidades:int) -> 
     return po * ((taxa_chegada/taxa_atendimento) ** n_unidades)
 
 def taxa_utilizacao(taxa_chegada:float, taxa_atendimento:float) -> float:
-    return taxa_chegada * taxa_atendimento
+    return taxa_chegada / taxa_atendimento
 
 def probabilidade(taxa_chegada:float, taxa_atendimento:float, target:int) -> float:
-    return 1 * ((taxa_chegada / taxa_atendimento) ** (target+1))
+    '''step1 = (target+1)
+    print(f'Step1: {step1}')
+    step2 = (taxa_chegada / taxa_atendimento)
+    print(f'Step2: {step2}')
+    step3 = step2 ** step1
+    print(f'Step3: {step3}')'''
+    return 1 - ((taxa_chegada / taxa_atendimento) ** (target+1))
 
 def media_clientes_sistema(taxa_chegada:float, taxa_atendimento:float) -> float:
     return taxa_chegada / (taxa_atendimento - taxa_chegada)
@@ -40,4 +46,4 @@ if __name__ == "__main__":
     tempo_medio_permanencia = tempo_medio_permanencia(taxa_chegada, taxa_atendimento)
     tempo_medio_fila = tempo_medio_fila(taxa_chegada, taxa_atendimento)
 
-    print(f'S: {taxa_utilizacao}\n P(0): {po}\nP(1): {pn}\nP(n=3): {probabilidade}')
+    print(f'S: {taxa_utilizacao:.1%}\nP(0): {po:.1%}\nP({int(taxa_chegada)}): {pn:.1%}\nP(n={int(target)}): {probabilidade:.1%}')
